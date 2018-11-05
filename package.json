@@ -1,0 +1,25 @@
+{
+  "name": "doctors-appointment",
+  "version": "1.0.0",
+  "description": "An app for creating & viewing doctor's appointments",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/analuizamtg/doctors-appointment.git"
+  },
+  "author": "Ana Luiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/analuizamtg/doctors-appointment/issues"
+  },
+  "homepage": "https://github.com/analuizamtg/doctors-appointment#readme",
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
