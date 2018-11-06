@@ -1,7 +1,7 @@
-var GraphQLSchema = require("graphql").GraphQLSchema;
-var GraphQLObjectType = require("graphql").GraphQLObjectType;
-var queryType = require("../resolvers").queryType;
+const GraphQLSchema = require("graphql").GraphQLSchema;
+const GraphQLObjectType = require("graphql").GraphQLObjectType;
+var query = require("./resolvers").query;
 
 exports.appointmentSchema = new GraphQLSchema({
-  query: queryType
+  query: query
 });
