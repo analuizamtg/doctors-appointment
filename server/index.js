@@ -7,7 +7,7 @@ const app = express();
 
 app.use("*", cors());
 
-const appointmentSchema = require("./graphql/index").appointmentSchema;
+const appointmentSchema = require("./graphql/schema").appointmentSchema;
 app.use(
   "/graphql",
   cors(),
