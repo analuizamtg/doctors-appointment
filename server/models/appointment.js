@@ -2,7 +2,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var AppointmentSchema = new Schema({
-  title: { type: String, required: "Appointment title is required" },
+  user: {
+    name: { type: String, required: "name is required" },
+    email: { type: String, required: "email is required" }
+  },
   dateAndTime: { type: Date, required: "Appointment start date is required" },
   endDateAndTime: { type: Date, required: "Appointment end date is required" }
 });
