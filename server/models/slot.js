@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SlotSchema = new Schema({
-  date: { type: Date, required: "Slot date is required" },
-  startTime: { type: Date, required: "Slot start time is required" },
-  endTime: { type: Date, required: "Slot end time is required" }
+  dateAndTime: { type: Date, required: "Slot start date is required" },
+  endDateAndTime: { type: Date, required: "Slot end date is required" }
 });
 
 module.exports = mongoose.model("Slot", SlotSchema);

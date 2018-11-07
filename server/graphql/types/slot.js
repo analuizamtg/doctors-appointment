@@ -4,19 +4,13 @@ const GraphQLID = require("graphql").GraphQLID;
 const GraphQLString = require("graphql").GraphQLString;
 
 exports.slotType = new GraphQLObjectType({
-  name: "slot",
+  name: "Slot",
   fields: function() {
     return {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
-      },
-      date: {
+      dateAndTime: {
         type: GraphQLString
       },
-      startTime: {
-        type: GraphQLString
-      },
-      endTime: {
+      endDateAndTime: {
         type: GraphQLString
       }
     };
