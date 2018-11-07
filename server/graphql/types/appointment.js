@@ -1,23 +1,19 @@
 const GraphQLObjectType = require("graphql").GraphQLObjectType;
-const GraphQLNonNull = require("graphql").GraphQLNonNull;
-const GraphQLID = require("graphql").GraphQLID;
 const GraphQLString = require("graphql").GraphQLString;
+const userType = require("./user").userType;
 
 exports.appointmentType = new GraphQLObjectType({
-  name: "appointment",
+  name: "Appointment",
   fields: function() {
     return {
-      id: {
-        type: new GraphQLNonNull(GraphQLID)
-      },
-      title: {
-        type: GraphQLString
-      },
       endDateAndTime: {
         type: GraphQLString
       },
       dateAndTime: {
         type: GraphQLString
+      },
+      user: {
+        type: userType
       }
     };
   }

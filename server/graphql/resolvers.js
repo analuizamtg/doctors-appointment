@@ -4,6 +4,7 @@ const Appointment = require("../models/appointment");
 const Slot = require("../models/slot");
 const appointmentType = require("./types/appointment").appointmentType;
 const slotType = require("./types/slot").slotType;
+const userInputType = require("./types/user").userInputType;
 const GraphQLString = require("graphql").GraphQLString;
 
 exports.query = new GraphQLObjectType({
@@ -43,8 +44,8 @@ exports.mutation = new GraphQLObjectType({
     createAppointment: {
       type: appointmentType,
       args: {
-        title: {
-          type: GraphQLString
+        user: {
+          type: userInputType
         },
         endDateAndTime: {
           type: GraphQLString
@@ -66,13 +67,10 @@ exports.mutation = new GraphQLObjectType({
     createSlot: {
       type: slotType,
       args: {
-        date: {
+        dateAndTime: {
           type: GraphQLString
         },
-        startTime: {
-          type: GraphQLString
-        },
-        endTime: {
+        endDateAndTime: {
           type: GraphQLString
         }
       },
