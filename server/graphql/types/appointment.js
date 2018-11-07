@@ -16,7 +16,7 @@ exports.appointmentType = new GraphQLObjectType({
       endDateAndTime: {
         type: GraphQLString
       },
-      startDateAndTime: {
+      dateAndTime: {
         type: GraphQLString
       }
     };
