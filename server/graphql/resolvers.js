@@ -5,7 +5,6 @@ const Slot = require("../models/slot");
 const appointmentType = require("./types/appointment").appointmentType;
 const slotType = require("./types/slot").slotType;
 const GraphQLString = require("graphql").GraphQLString;
-const ValidationError = require("./validationError");
 
 exports.query = new GraphQLObjectType({
   name: "Query",
@@ -56,15 +55,12 @@ exports.mutation = new GraphQLObjectType({
       },
       resolve: (root, params) => {
         const appointmentModel = new Appointment(params);
-        appointmentModel.save(function(err, appointment) {
-          if (err) {
-            if (err.name === "ValidationError") {
-              throw new ValidationError(err);
-            }
-            return;
-          }
-          return appointment;
-        });
+        return appointmentModel
+          .save()
+          .then(appointment => appointment)
+          .catch(e => {
+            throw e;
+          });
       }
     },
     createSlot: {
@@ -82,12 +78,12 @@ exports.mutation = new GraphQLObjectType({
       },
       resolve: (root, params) => {
         const slotModel = new Slot(params);
-        slotModel.save(function(err, slot) {
-          if (err) {
-            throw new ValidationError(error);
-          }
-          return slot;
-        });
+        return slotModel
+          .save()
+          .then(slot => slot)
+          .catch(error => {
+            throw error;
+          });
       }
     }
   }
