@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("./models/appointment");
 const graphqlHTTP = require("express-graphql");
 const cors = require("cors");
-const db = mongoose();
+const db = require("mongoose");
 const app = express();
 
 app.use("*", cors());
@@ -16,6 +16,8 @@ app.use(
     graphiql: true
   })
 );
+
+db.connect("mongodb://localhost:27017/test");
 
 // Up and Running at Port 4000
 app.listen(process.env.PORT || 4000, () => {
