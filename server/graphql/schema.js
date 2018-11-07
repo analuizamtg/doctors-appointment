@@ -1,7 +1,9 @@
 const GraphQLSchema = require("graphql").GraphQLSchema;
 const GraphQLObjectType = require("graphql").GraphQLObjectType;
-var query = require("./resolvers").query;
+const query = require("./resolvers").query;
+var mutation = require("./resolvers").mutation;
 
 exports.appointmentSchema = new GraphQLSchema({
-  query: query
+  query: query,
+  mutation: mutation
 });
