@@ -1,13 +1,13 @@
 const GraphQLObjectType = require("graphql").GraphQLObjectType;
 const GraphQLList = require("graphql").GraphQLList;
+const GraphQLString = require("graphql").GraphQLString;
 const Appointment = require("../models/appointment");
 const Slot = require("../models/slot");
 const appointmentType = require("./types/appointment").appointmentType;
 const slotType = require("./types/slot").slotType;
 const userInputType = require("./types/user").userInputType;
-const GraphQLString = require("graphql").GraphQLString;
 
-exports.query = new GraphQLObjectType({
+exports.Query = new GraphQLObjectType({
   name: "Query",
   fields: () => {
     return {
@@ -38,7 +38,7 @@ exports.query = new GraphQLObjectType({
   }
 });
 
-exports.mutation = new GraphQLObjectType({
+exports.Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     createAppointment: {
