@@ -7,7 +7,7 @@ const AppointmentSchema = new Schema({
     email: { type: String, required: "E-mail is required" }
   },
   dateAndTime: { type: Date, required: "Appointment start date is required" },
-  endDateAndTime: { type: Date, required: "Appointment end date is required" }
+  endDateAndTime: { type: Date }
 });
 
 AppointmentSchema.path("dateAndTime").validate(function(value, done) {
