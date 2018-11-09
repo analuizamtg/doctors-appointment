@@ -1,6 +1,35 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+
+class Input extends Component {
+  handleChange = event => {
+    this.props.onChange && this.props.onChange(event);
+  };
+
+  onClick = event => {
+    this.props.onClick && this.props.onClick(event);
+  };
+
+  render() {
+    const { label, placeholder, type = "text", name } = this.props;
+    return (
+      <Label>
+        {label && <Span>{label}</Span>}
+        <Div>
+          <StyledInput
+            name={name}
+            placeholder={placeholder}
+            type={type}
+            onChange={this.handleChange}
+            onClick={this.onClick}
+            value={this.props.value}
+          />
+        </Div>
+      </Label>
+    );
+  }
+}
 
 const StyledInput = styled.input`
   width: 100%;
@@ -34,17 +63,6 @@ const Div = styled.div`
   display: flex;
   padding-bottom: 2rem;
 `;
-
-const Input = ({ label, placeholder, type = "text" }) => {
-  return (
-    <Label>
-      {label && <Span>{label}</Span>}
-      <Div>
-        <StyledInput placeholder={placeholder} type={type} />
-      </Div>
-    </Label>
-  );
-};
 
 Input.propTypes = {
   label: PropTypes.string,
