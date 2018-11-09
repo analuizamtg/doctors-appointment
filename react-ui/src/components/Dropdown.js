@@ -23,11 +23,12 @@ class Dropdown extends Component {
             <FlexDiv>
               <Placeholder>{placeholder}</Placeholder>
               <IconDiv>
-                <Icon icon={angleDown} color={"blue"} />
+                <Icon icon={angleDown} size={13} color={"blue"} />
               </IconDiv>
             </FlexDiv>
           </PlaceholderDiv>
           <Select
+            onChange={this.handleChange}
             style={{
               // safari select height fix
               WebkitAppearance: "menulist-button"
@@ -79,7 +80,7 @@ const PlaceholderDiv = styled.div`
   font-size: 0.875rem;
   color: #979899;
   background-color: transparent;
-  padding-top: 0.5rem;
+  padding-top: 0.23rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 0.75rem;
