@@ -8,13 +8,15 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import Button from "./components/Button";
 import { compose, graphql } from "react-apollo";
+import getSlotsByDate from "./graphql/GetSlotsByDate.js";
 import createAppointment from "./graphql/CreateAppointment.js";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: moment()
+      date: moment(),
+      slots: []
     };
   }
 
@@ -30,6 +32,17 @@ class App extends Component {
       })
       .then(appointment => {
         console.log("aquiiiiiii");
+      });
+  };
+
+  handleDateChange = date => {
+    this.setState({ date: date });
+    this.props.slotsData
+      .refetch({
+        date: date._d
+      })
+      .then(data => {
+        console.log(data);
       });
   };
 
@@ -110,4 +123,18 @@ const createCollectionMutation = graphql(createAppointment, {
   name: "createAppointment"
 });
 
-export default compose(createCollectionMutation)(App);
+const getSlotsByDateQuery = graphql(getSlotsByDate, {
+  name: "slotsData",
+  options() {
+    return {
+      variables: {
+        date: new moment()._d
+      }
+    };
+  }
+});
+
+export default compose(
+  createCollectionMutation,
+  getSlotsByDateQuery
+)(App);

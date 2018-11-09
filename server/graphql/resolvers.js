@@ -25,13 +25,27 @@ exports.Query = new GraphQLObjectType({
       },
       slots: {
         type: new GraphQLList(slotType),
-        resolve: () => {
-          return Slot.find((error, slots) => {
-            if (error) {
-              throw error;
+        args: {
+          date: {
+            type: GraphQLString
+          }
+        },
+        resolve: (root, params) => {
+          const slotDate = new Date(params.date);
+          const dayStart = slotDate.setHours(0, 0, 0, 0);
+          const dayEnd = slotDate.setHours(23, 59, 59, 999);
+          return Slot.find(
+            {
+              dateAndTime: { $gte: dayStart },
+              endDateAndTime: { $lte: dayEnd }
+            },
+            (error, slots) => {
+              if (error) {
+                throw error;
+              }
+              return slots;
             }
-            return slots;
-          });
+          );
         }
       }
     };
