@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm test",
-    "start": "node index.js"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,7 @@
     "url": "https://github.com/analuizamtg/doctors-appointment/issues"
   },
   "homepage": "https://github.com/analuizamtg/doctors-appointment#readme",
-  "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
