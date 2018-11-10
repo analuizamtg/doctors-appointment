@@ -13,36 +13,76 @@ class Dropdown extends Component {
     onChange(e, value);
   };
 
+  getOptionFromValue = value => {
+    const { options } = this.props;
+    const option = options.filter(option => option.value == value)[0];
+    if (!option) return null;
+    return option;
+  };
+
+  getSelectedOption = () => {
+    return this.getOptionFromValue(this.props.value);
+  };
+
+  getPlaceholder = () => {
+    const { placeholder, label, helpText } = this.props;
+    const placeholderValue = placeholder || label || helpText || "";
+
+    return placeholderValue;
+  };
+
+  getValueLabel() {
+    const selectedOption = this.getSelectedOption();
+    return selectedOption ? selectedOption.label : this.getPlaceholder();
+  }
+
   render() {
-    const { label, placeholder, options } = this.props;
+    const valueLabel = this.getValueLabel();
+    const {
+      label,
+      placeholder,
+      options,
+      disabled,
+      value,
+      errorMessage
+    } = this.props;
     return (
-      <label>
-        {label && <Span>{label}</Span>}
-        <Div>
-          <PlaceholderDiv>
-            <FlexDiv>
-              <Placeholder>{placeholder}</Placeholder>
-              <IconDiv>
-                <Icon icon={angleDown} size={13} color={"blue"} />
-              </IconDiv>
-            </FlexDiv>
-          </PlaceholderDiv>
-          <Select
-            onChange={this.handleChange}
-            style={{
-              // safari select height fix
-              WebkitAppearance: "menulist-button"
-            }}
-          >
+      <div>
+        <label>
+          {label && <Span>{label}</Span>}
+          <Div>
+            <Container
+              disabled={disabled}
+              value={value}
+              placeholder={placeholder}
             >
-            {options.map(option => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Select>
-        </Div>
-      </label>
+              <FlexDiv>
+                <Placeholder>{!disabled && valueLabel}</Placeholder>
+                <IconDiv>
+                  <Icon icon={angleDown} size={13} color={"blue"} />
+                </IconDiv>
+              </FlexDiv>
+            </Container>
+            <Select
+              onChange={this.handleChange}
+              value={value}
+              disabled={disabled}
+              style={{
+                // safari select height fix
+                WebkitAppearance: "menulist-button"
+              }}
+            >
+              >
+              {options.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
+          </Div>
+        </label>
+        {errorMessage && <ErrorContainer>{errorMessage}</ErrorContainer>}
+      </div>
     );
   }
 }
@@ -52,7 +92,7 @@ const Select = styled.select`
   opacity: 0;
   bottom: 0;
   top: 0;
-  cursor: pointer;
+  cursor: ${props => !props.disabled && "pointer"};
   font-size: 0.875rem;
   opacity: 0;
   width: 35%;
@@ -62,6 +102,13 @@ const Span = styled.span`
   display: inline-block;
   width: 100%;
   font-size: 0.875rem;
+`;
+
+const ErrorContainer = styled.div`
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #ff4c4c;
+  margin-top: 0.25rem;
 `;
 
 const Div = styled.div`
@@ -74,12 +121,12 @@ const Div = styled.div`
   }
 `;
 
-const PlaceholderDiv = styled.div`
+const Container = styled.div`
   border-style: none;
-  cursor: pointer;
+  cursor: ${props => !props.disabled && "pointer"}
   font-size: 0.875rem;
-  color: #979899;
-  background-color: transparent;
+  color: ${props => props.placeholder && !props.value && "#979899"};
+  background-color: ${props => (props.disabled ? "#E3E4E6" : "transparent")};
   padding-top: 0.23rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
