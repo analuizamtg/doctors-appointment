@@ -10,23 +10,25 @@ import Button from "./components/Button";
 import { compose, graphql } from "react-apollo";
 import getSlotsByDate from "./graphql/GetSlotsByDate.js";
 import createAppointment from "./graphql/CreateAppointment.js";
+import Loader from "react-loader-spinner";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: moment(),
-      slots: []
+      selectedDay: moment(),
+      isLoading: false,
+      slots: [],
+      availableTimes: []
     };
   }
 
   handleClick = () => {
     const { name, email, date } = this.state;
-    console.log("aquiiii");
     this.props
       .createAppointment({
         variables: {
-          dateAndTime: new Date(),
+          dateAndTime: date,
           user: { name: name, email: email }
         }
       })
@@ -36,55 +38,99 @@ class App extends Component {
   };
 
   handleDateChange = date => {
-    this.setState({ date: date });
+    this.setState({ selectedDay: date, isLoading: true });
     this.props.slotsData
       .refetch({
         date: date._d
       })
       .then(data => {
-        console.log(data);
+        this.setState({ slots: data.data.slots }, () => {
+          return this.getPossibleAppointmentTimes();
+        });
       });
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.slotsData.slots !== this.props.slotsData.slots) {
+      this.setState({ slots: nextProps.slotsData.slots }, () => {
+        return this.getPossibleAppointmentTimes();
+      });
+    }
+  }
+
+  getPossibleAppointmentTimes() {
+    const availableTimes = [];
+    const { slots } = this.state;
+    if (slots && slots.length > 0) {
+      for (var i = 0; i < slots.length; i++) {
+        var startTime = new Date(parseInt(slots[i].dateAndTime));
+        const endTime = new Date(parseInt(slots[i].endDateAndTime));
+        while (startTime < endTime) {
+          availableTimes.push({
+            value: startTime,
+            label: moment(startTime).format("hh:mm A")
+          });
+          startTime = moment(startTime)
+            .add(30, "m")
+            .toDate();
+        }
+      }
+    }
+    this.setState({ availableTimes: availableTimes, isLoading: false });
+  }
+
   render() {
+    const { isLoading, date, availableTimes, selectedDay } = this.state;
     return (
-      <div>
-        <Container>
-          <h2>Schedule your appointment</h2>
-          <Div>
-            <Input
-              label={"Full name"}
-              onChange={e => {
-                this.setState({ name: e.target.value });
-              }}
-            />
-            <Input
-              label={"E-mail"}
-              onChange={e => {
-                this.setState({ email: e.target.value });
-              }}
-              type={"email"}
-            />
-            <DateTimeContainer>
-              <DatePickerContainer>
-                <DatePicker
-                  customInput={<Input label={"Date"} />}
-                  selected={this.state.date}
-                  onChange={this.handleDateChange}
-                />
-              </DatePickerContainer>
-              <DropdownContainer>
-                <Dropdown
-                  onChange={() => {}}
-                  options={[{ label: "19:30", value: new Date() }]}
-                  label={"Time"}
-                />
-              </DropdownContainer>
-            </DateTimeContainer>
-            <Button onClick={this.handleClick} label={"schedule"} />
-          </Div>
-        </Container>
-      </div>
+      <Container>
+        <Div>
+          <Input
+            label={"Full name"}
+            onChange={e => {
+              this.setState({ name: e.target.value });
+            }}
+          />
+          <Input
+            label={"E-mail"}
+            onChange={e => {
+              this.setState({ email: e.target.value });
+            }}
+            type={"email"}
+          />
+          <DateTimeContainer>
+            <DatePickerContainer>
+              <DatePicker
+                customInput={<Input label={"Date"} />}
+                selected={selectedDay}
+                onChange={this.handleDateChange}
+              />
+            </DatePickerContainer>
+            {isLoading && (
+              <SpinnerContainer>
+                <Loader type="Oval" color="#00BFFF" height="20" width="20" />
+              </SpinnerContainer>
+            )}
+            <DropdownContainer>
+              <Dropdown
+                onChange={(e, value) => {
+                  this.setState({ date: value });
+                }}
+                options={availableTimes}
+                disabled={isLoading || availableTimes.length === 0}
+                errorMessage={
+                  availableTimes &&
+                  availableTimes.length === 0 &&
+                  "No available times this day."
+                }
+                placeholder={"Select one slot"}
+                value={date}
+                label={"Time"}
+              />
+            </DropdownContainer>
+          </DateTimeContainer>
+          <Button onClick={this.handleClick} label={"schedule"} />
+        </Div>
+      </Container>
     );
   }
 }
@@ -105,11 +151,16 @@ const DateTimeContainer = styled.div`
 `;
 
 const DatePickerContainer = styled.div`
-  padding-right: 2rem;
+  padding-right: 1.5rem;
 `;
 
 const DropdownContainer = styled.div`
   width: 100%;
+`;
+
+const SpinnerContainer = styled.div`
+  padding-top: 1.5rem;
+  padding-right: 0.5rem;
 `;
 
 const Div = styled.div`
