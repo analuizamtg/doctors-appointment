@@ -7,6 +7,7 @@ import Spinner from "../components/Spinner.js";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import moment from "moment";
+import Header from "../components/Header";
 
 class ViewAppointments extends Component {
   render() {
@@ -40,11 +41,13 @@ class ViewAppointments extends Component {
       return <Spinner />;
     }
 
-    console.log(appointments);
     return (
-      <TableContainer>
-        <ReactTable data={appointments} columns={columns} />
-      </TableContainer>
+      <div>
+        <Header width={"955px"} title={"Appointments"} />
+        <TableContainer>
+          <ReactTable data={appointments} columns={columns} />
+        </TableContainer>
+      </div>
     );
   }
 }
