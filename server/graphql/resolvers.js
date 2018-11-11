@@ -15,13 +15,13 @@ exports.Query = new GraphQLObjectType({
       appointments: {
         type: new GraphQLList(appointmentType),
         resolve: () => {
-          return Appointment.find((error, appointments) => {
-            if (error) {
-              throw error;
-            }
-
-            return appointments;
-          });
+          return Appointment.find({})
+            .sort({ dateAndTime: "asc" })
+            .exec()
+            .then(appointments => appointments)
+            .catch(e => {
+              throw e;
+            });
         }
       },
       slotsByDate: {
