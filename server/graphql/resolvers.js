@@ -6,6 +6,7 @@ const Slot = require("../models/slot");
 const appointmentType = require("./types/appointment").appointmentType;
 const slotType = require("./types/slot").slotType;
 const userInputType = require("./types/user").userInputType;
+const slotInputType = require("./types/slot").slotInputType;
 
 exports.Query = new GraphQLObjectType({
   name: "Query",
@@ -78,21 +79,16 @@ exports.Mutation = new GraphQLObjectType({
           });
       }
     },
-    createSlot: {
-      type: slotType,
+    createSlots: {
+      type: new GraphQLList(slotType),
       args: {
-        dateAndTime: {
-          type: GraphQLString
-        },
-        endDateAndTime: {
-          type: GraphQLString
+        slots: {
+          type: new GraphQLList(slotInputType)
         }
       },
       resolve: (root, params) => {
-        const slotModel = new Slot(params);
-        return slotModel
-          .save()
-          .then(slot => slot)
+        return Slot.insertMany(params.slots)
+          .then(slots => slots)
           .catch(error => {
             throw error;
           });
