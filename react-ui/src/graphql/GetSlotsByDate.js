@@ -2,9 +2,9 @@ import gql from "graphql-tag";
 
 const getSlotsByDate = gql`
   query getSlotsByDate($date: String) {
-    slots(date: $date) {
-      dateAndTime
-      endDateAndTime
+    slotsByDate(date: $date) {
+      start
+      end
     }
   }
 `;
