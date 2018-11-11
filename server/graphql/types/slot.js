@@ -1,16 +1,28 @@
 const GraphQLObjectType = require("graphql").GraphQLObjectType;
-const GraphQLNonNull = require("graphql").GraphQLNonNull;
-const GraphQLID = require("graphql").GraphQLID;
 const GraphQLString = require("graphql").GraphQLString;
-
+const GraphQLInputObjectType = require("graphql").GraphQLInputObjectType;
 exports.slotType = new GraphQLObjectType({
   name: "Slot",
   fields: function() {
     return {
-      dateAndTime: {
+      start: {
         type: GraphQLString
       },
-      endDateAndTime: {
+      end: {
+        type: GraphQLString
+      }
+    };
+  }
+});
+
+exports.slotInputType = new GraphQLInputObjectType({
+  name: "SlotInput",
+  fields: function() {
+    return {
+      start: {
+        type: GraphQLString
+      },
+      end: {
         type: GraphQLString
       }
     };
