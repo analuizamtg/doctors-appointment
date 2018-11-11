@@ -24,7 +24,7 @@ exports.Query = new GraphQLObjectType({
           });
         }
       },
-      slots: {
+      slotsByDate: {
         type: new GraphQLList(slotType),
         args: {
           date: {
@@ -37,8 +37,8 @@ exports.Query = new GraphQLObjectType({
           const dayEnd = slotDate.setHours(23, 59, 59, 999);
           return Slot.find(
             {
-              dateAndTime: { $gte: dayStart },
-              endDateAndTime: { $lte: dayEnd }
+              start: { $gte: dayStart },
+              end: { $lte: dayEnd }
             },
             (error, slots) => {
               if (error) {
@@ -47,6 +47,17 @@ exports.Query = new GraphQLObjectType({
               return slots;
             }
           );
+        }
+      },
+      slots: {
+        type: new GraphQLList(slotType),
+        resolve: (root, params) => {
+          return Slot.find((error, slots) => {
+            if (error) {
+              throw error;
+            }
+            return slots;
+          });
         }
       }
     };
