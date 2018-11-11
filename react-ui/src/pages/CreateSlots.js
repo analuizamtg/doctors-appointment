@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import "react-datepicker/dist/react-datepicker.css";
 import { compose, graphql } from "react-apollo";
 import getSlots from "../graphql/GetSlots.js";
 import createSlots from "../graphql/CreateSlots.js";
 import AvailableTimes from "react-available-times";
-import Loader from "react-loader-spinner";
 import styled from "styled-components";
 import Button from "../components/Button";
 import PropTypes from "prop-types";
+import Spinner from "../components/Spinner.js";
 
 class CreateSlots extends Component {
   constructor(props) {
@@ -66,11 +65,7 @@ class CreateSlots extends Component {
     const initialSelections = this.convertIntoDateObject();
 
     if (!slots || loading) {
-      return (
-        <SpinnerContainer>
-          <Loader type="TailSpin" color="#00BFFF" height="100" width="100" />;
-        </SpinnerContainer>
-      );
+      return <Spinner />;
     }
     return (
       <div>
@@ -114,13 +109,6 @@ const getSlotsQuery = graphql(getSlots, {
 const createSlotsMutation = graphql(createSlots, {
   name: "createSlots"
 });
-
-const SpinnerContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 4rem;
-`;
 
 const ButtonContainer = styled.div`
   width: 15%;
