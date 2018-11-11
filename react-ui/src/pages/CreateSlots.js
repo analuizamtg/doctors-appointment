@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import PropTypes from "prop-types";
 import Spinner from "../components/Spinner.js";
+import Header from "../components/Header.js";
 
 class CreateSlots extends Component {
   constructor(props) {
@@ -69,33 +70,36 @@ class CreateSlots extends Component {
     }
     return (
       <div>
-        <AvailableTimes
-          weekStartsOn="monday"
-          calendars={[
-            {
-              id: "appointments",
-              title: "appointments",
-              foregroundColor: "#ff00ff",
-              backgroundColor: "#f0f0f0",
-              selected: true
-            }
-          ]}
-          onChange={this.handleSlotSelection}
-          height={400}
-          recurring={false}
-          initialSelections={initialSelections}
-          availableDays={[
-            "monday",
-            "tuesday",
-            "wednesday",
-            "thursday",
-            "friday",
-            "saturday"
-          ]}
-          availableHourRange={{ start: 7, end: 20 }}
-        />
+        <Header title={"Manage available slots"} width={"90%"} />
+        <CalendarContainer>
+          <AvailableTimes
+            weekStartsOn="monday"
+            calendars={[
+              {
+                id: "appointments",
+                title: "appointments",
+                foregroundColor: "#ff00ff",
+                backgroundColor: "#f0f0f0",
+                selected: true
+              }
+            ]}
+            onChange={this.handleSlotSelection}
+            height={400}
+            recurring={false}
+            initialSelections={initialSelections}
+            availableDays={[
+              "monday",
+              "tuesday",
+              "wednesday",
+              "thursday",
+              "friday",
+              "saturday"
+            ]}
+            availableHourRange={{ start: 7, end: 20 }}
+          />
+        </CalendarContainer>
         <ButtonContainer>
-          <Button onClick={this.handleClick} label="create" />
+          <Button onClick={this.handleClick} label="submit" />
         </ButtonContainer>
       </div>
     );
@@ -114,7 +118,14 @@ const ButtonContainer = styled.div`
   width: 15%;
   margin: auto;
   padding-top: 2rem;
+  padding-bottom: 1rem;
 `;
+
+const CalendarContainer = styled.div`
+  width: 95%;
+  margin: auto;
+`;
+
 CreateSlots.propTypes = {
   slotsData: PropTypes.object
 };
