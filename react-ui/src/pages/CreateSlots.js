@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { compose, graphql } from "react-apollo";
-import getSlots from "./graphql/GetSlots.js";
-import createSlots from "./graphql/CreateSlots.js";
+import getSlots from "../graphql/GetSlots.js";
+import createSlots from "../graphql/CreateSlots.js";
 import AvailableTimes from "react-available-times";
 import Loader from "react-loader-spinner";
 import styled from "styled-components";
-import Button from "./components/Button";
+import Button from "../components/Button";
+import PropTypes from "prop-types";
 
 class CreateSlots extends Component {
   constructor(props) {
@@ -126,6 +127,10 @@ const ButtonContainer = styled.div`
   margin: auto;
   padding-top: 2rem;
 `;
+CreateSlots.propTypes = {
+  slotsData: PropTypes.object
+};
+
 export default compose(
   getSlotsQuery,
   createSlotsMutation
