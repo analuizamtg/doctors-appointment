@@ -67,7 +67,8 @@ const Div = styled.div`
 Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  name: PropTypes.string
 };
 
 export default Input;

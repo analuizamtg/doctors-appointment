@@ -31,7 +31,8 @@ const StyledButton = styled.button`
 Button.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default Button;

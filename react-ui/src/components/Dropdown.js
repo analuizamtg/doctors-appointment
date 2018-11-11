@@ -157,7 +157,10 @@ const IconDiv = styled.div`
 Dropdown.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  options: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired,
+  disabled: PropTypes.bool,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: PropTypes.func
 };
 
 export default Dropdown;
