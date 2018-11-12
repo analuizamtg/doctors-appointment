@@ -12,18 +12,16 @@ const AppointmentSchema = new Schema({
 
 AppointmentSchema.path("dateAndTime").validate(function(value, done) {
   var self = this;
-  return mongoose.models.Appointment.find(
-    {
-      _id: { $ne: self._id },
-      $or: [
-        { dateAndTime: { $lt: self.endDateAndTime, $gte: self.dateAndTime } },
-        { endDateAndTime: { $lte: self.endDateAndTime, $gt: self.dateAndTime } }
-      ]
-    },
-    function(err, appointments) {
-      return !appointments || appointments.length === 0;
-    }
-  );
+  return mongoose.models.Appointment.find({
+    _id: { $ne: self._id },
+    $or: [
+      { dateAndTime: { $lt: self.endDateAndTime, $gte: self.dateAndTime } },
+      { endDateAndTime: { $lte: self.endDateAndTime, $gt: self.dateAndTime } }
+    ],
+    $or: [{ dateAndTime: { $eq: self.dateAndTime } }]
+  }).then(appointments => {
+    return !appointments || appointments.length === 0;
+  });
 }, "The appointment overlaps with other appointments");
 
 AppointmentSchema.path("dateAndTime").validate(function(value, done) {
