@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import CreateAppointment from "./pages/CreateAppointment";
-import CreateSlots from "./pages/CreateSlots";
+import ManageSlots from "./pages/ManageSlots";
 import ViewAppointments from "./pages/ViewAppointments";
 
 const AppRouter = () => {
@@ -13,7 +13,7 @@ const AppRouter = () => {
         exact={true}
         component={ViewAppointments}
       />
-      <Route path="/admin" exact={true} component={CreateSlots} />
+      <Route path="/admin" exact={true} component={ManageSlots} />
     </Switch>
   );
 };
