@@ -17,9 +17,9 @@ app.use(
   })
 );
 
-db.connect("mongodb://localhost:27017/test");
+db.connect(process.env.MONGODB_URI);
+const port = process.env.PORT || 4000;
 
-// Up and Running at Port 4000
-app.listen(process.env.PORT || 4000, () => {
-  console.log("A GraphQL API running at port 4000");
+app.listen(port, () => {
+  console.log(`A GraphQL API running at port ${port}`);
 });
