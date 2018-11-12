@@ -34,9 +34,12 @@ class CreateAppointment extends Component {
         }
       })
       .then(appointment => {
-        toast.success("Success Notification !", {
+        toast.success("Appointment successfully created!", {
           position: toast.POSITION.BOTTOM_LEFT
         });
+      })
+      .catch(e => {
+        console.log("aquiii", e);
       });
   };
 
@@ -86,7 +89,7 @@ class CreateAppointment extends Component {
     const { isLoading, date, availableTimes, selectedDay } = this.state;
     return (
       <Container>
-        <ToastContainer autoClose={5000} />
+        <ToastContainer />
         <Div>
           <Input
             label={"Full name"}

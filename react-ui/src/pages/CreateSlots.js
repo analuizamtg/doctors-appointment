@@ -8,6 +8,8 @@ import Button from "../components/Button";
 import PropTypes from "prop-types";
 import Spinner from "../components/Spinner.js";
 import Header from "../components/Header.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 class CreateSlots extends Component {
   constructor(props) {
@@ -57,7 +59,9 @@ class CreateSlots extends Component {
         }
       })
       .then(slots => {
-        console.log(slots);
+        toast.success("Slots successfully updated!", {
+          position: toast.POSITION.BOTTOM_LEFT
+        });
       });
   };
 
@@ -70,6 +74,7 @@ class CreateSlots extends Component {
     }
     return (
       <div>
+        <ToastContainer />
         <Header title={"Manage available slots"} width={"90%"} />
         <CalendarContainer>
           <AvailableTimes
