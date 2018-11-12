@@ -8,6 +8,9 @@ const app = express();
 
 app.use("*", cors());
 app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve("../react-ui/build", "index.html"))
+);
 
 const appointmentSchema = require("./graphql/schema").appointmentSchema;
 app.use(
