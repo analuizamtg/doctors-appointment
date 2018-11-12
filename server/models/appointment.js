@@ -17,8 +17,7 @@ AppointmentSchema.path("dateAndTime").validate(function(value, done) {
     $or: [
       { dateAndTime: { $lt: self.endDateAndTime, $gte: self.dateAndTime } },
       { endDateAndTime: { $lte: self.endDateAndTime, $gt: self.dateAndTime } }
-    ],
-    $or: [{ dateAndTime: { $eq: self.dateAndTime } }]
+    ]
   }).then(appointments => {
     return !appointments || appointments.length === 0;
   });
@@ -27,5 +26,9 @@ AppointmentSchema.path("dateAndTime").validate(function(value, done) {
 AppointmentSchema.path("dateAndTime").validate(function(value, done) {
   return value > new Date();
 }, "The appointment cannot be scheduled in the past");
+
+AppointmentSchema.path("endDateAndTime").validate(function(value, done) {
+  return value ? value > this.dateAndTime : true;
+}, "End date must be greater than start date");
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);
