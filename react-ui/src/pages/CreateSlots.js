@@ -60,7 +60,14 @@ class CreateSlots extends Component {
       })
       .then(slots => {
         toast.success("Slots successfully updated!", {
-          position: toast.POSITION.BOTTOM_LEFT
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: 5000
+        });
+      })
+      .catch(e => {
+        toast.error(e && e.message, {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: false
         });
       });
   };

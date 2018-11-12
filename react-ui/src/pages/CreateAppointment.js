@@ -35,11 +35,15 @@ class CreateAppointment extends Component {
       })
       .then(appointment => {
         toast.success("Appointment successfully created!", {
-          position: toast.POSITION.BOTTOM_LEFT
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: 5000
         });
       })
       .catch(e => {
-        console.log("aquiii", e);
+        toast.error(e && e.message, {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: false
+        });
       });
   };
 
