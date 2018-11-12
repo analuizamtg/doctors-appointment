@@ -10,6 +10,8 @@ import { compose, graphql } from "react-apollo";
 import getSlotsByDate from "../graphql/GetSlotsByDate.js";
 import createAppointment from "../graphql/CreateAppointment.js";
 import Loader from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 class CreateAppointment extends Component {
   constructor(props) {
@@ -32,7 +34,9 @@ class CreateAppointment extends Component {
         }
       })
       .then(appointment => {
-        console.log("aquiiiiiii");
+        toast.success("Success Notification !", {
+          position: toast.POSITION.BOTTOM_LEFT
+        });
       });
   };
 
@@ -43,15 +47,15 @@ class CreateAppointment extends Component {
         date: date._d
       })
       .then(data => {
-        this.setState({ slots: data.data.slots }, () => {
+        this.setState({ slots: data.data.slotsByDate }, () => {
           return this.getPossibleAppointmentTimes();
         });
       });
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.slotsData.slots !== this.props.slotsData.slots) {
-      this.setState({ slots: nextProps.slotsData.slots }, () => {
+    if (nextProps.slotsData.slotsByDate !== this.props.slotsData.slotsByDate) {
+      this.setState({ slots: nextProps.slotsData.slotsByDate }, () => {
         return this.getPossibleAppointmentTimes();
       });
     }
@@ -62,8 +66,8 @@ class CreateAppointment extends Component {
     const { slots } = this.state;
     if (slots && slots.length > 0) {
       for (var i = 0; i < slots.length; i++) {
-        var startTime = new Date(parseInt(slots[i].dateAndTime));
-        const endTime = new Date(parseInt(slots[i].endDateAndTime));
+        var startTime = new Date(parseInt(slots[i].start));
+        const endTime = new Date(parseInt(slots[i].end));
         while (startTime < endTime) {
           availableTimes.push({
             value: startTime,
@@ -82,6 +86,7 @@ class CreateAppointment extends Component {
     const { isLoading, date, availableTimes, selectedDay } = this.state;
     return (
       <Container>
+        <ToastContainer autoClose={5000} />
         <Div>
           <Input
             label={"Full name"}
