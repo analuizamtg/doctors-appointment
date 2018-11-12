@@ -14,6 +14,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Header from "../components/Header";
 
+const APPOINTMENT_DURATION_IN_MINUTES = 30;
+
 class CreateAppointment extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,10 @@ class CreateAppointment extends Component {
       .createAppointment({
         variables: {
           dateAndTime: date,
+          endDateAndTime: moment(date).add(
+            APPOINTMENT_DURATION_IN_MINUTES,
+            "m"
+          ),
           user: { name: name, email: email }
         }
       })
@@ -82,7 +88,7 @@ class CreateAppointment extends Component {
             label: moment(startTime).format("hh:mm A")
           });
           startTime = moment(startTime)
-            .add(30, "m")
+            .add(APPOINTMENT_DURATION_IN_MINUTES, "m")
             .toDate();
         }
       }
