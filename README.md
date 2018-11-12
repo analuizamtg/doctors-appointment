@@ -38,6 +38,7 @@ npm install
 # Start the server
 npm start
 ```
+
 ## Automated tests
 
 ### First, run the API Server
@@ -62,12 +63,12 @@ npm test
 
 ## Built With
 
-* [Create-react-app](https://github.com/facebookincubator/create-react-app) to start a React project.
-* [NodeJS](https://nodejs.org/en/) to build the server API.
-* [GraphQL](https://graphql.org/) as query language for the API.
-* [MongoDB](https://www.mongodb.com/) to store appointments' data.
-
+- [Create-react-app](https://github.com/facebookincubator/create-react-app) to start a React project.
+- [NodeJS](https://nodejs.org/en/) to build the server API.
+- [GraphQL](https://graphql.org/) as query language for the API.
+- [MongoDB](https://www.mongodb.com/) to store appointments' data.
+- [Styled Components](https://www.styled-components.com/) to style React components.
 
 ## Author
 
-* **Ana Luiza Motta Gomes** - [analuizamtg](https://github.com/analuizamtg)
+- **Ana Luiza Motta Gomes** - [analuizamtg](https://github.com/analuizamtg)
