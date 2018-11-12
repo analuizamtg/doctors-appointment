@@ -91,11 +91,12 @@ const Select = styled.select`
   position: absolute;
   opacity: 0;
   bottom: 0;
+  left: 0;
   top: 0;
   cursor: ${props => !props.disabled && "pointer"};
   font-size: 0.875rem;
   opacity: 0;
-  width: 35%;
+  width: 100%;
 `;
 
 const Span = styled.span`
@@ -112,6 +113,7 @@ const ErrorContainer = styled.div`
 `;
 
 const Div = styled.div`
+  position: relative;
   border-radius: 0.25rem;
   border-style: solid;
   border-color: #e3e4e6;
@@ -123,6 +125,7 @@ const Div = styled.div`
 
 const Container = styled.div`
   border-style: none;
+  border-width: 0;
   cursor: ${props => !props.disabled && "pointer"}
   font-size: 0.875rem;
   color: ${props => props.placeholder && !props.value && "#979899"};
