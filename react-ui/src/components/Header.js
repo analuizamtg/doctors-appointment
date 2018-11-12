@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const Header = ({ title, width }) => {
+const Header = ({ title, width, paddingBottom }) => {
   return (
-    <OuterContainer>
+    <OuterContainer paddingBottom={paddingBottom}>
       <Container width={width}>
         <InnerContainer>{title}</InnerContainer>
       </Container>
@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const OuterContainer = styled.div`
   padding-top: 2rem;
+  padding-bottom ${props => props.paddingBottom || 0};
 `;
 
 const InnerContainer = styled.div`
@@ -30,7 +31,8 @@ const InnerContainer = styled.div`
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  width: PropTypes.string
+  width: PropTypes.string,
+  paddingBottom: PropTypes.string
 };
 
 export default Header;

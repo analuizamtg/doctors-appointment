@@ -12,6 +12,7 @@ import createAppointment from "../graphql/CreateAppointment.js";
 import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import Header from "../components/Header";
 
 class CreateAppointment extends Component {
   constructor(props) {
@@ -92,68 +93,76 @@ class CreateAppointment extends Component {
   render() {
     const { isLoading, date, availableTimes, selectedDay } = this.state;
     return (
-      <Container>
-        <ToastContainer />
-        <Div>
-          <Input
-            label={"Full name"}
-            onChange={e => {
-              this.setState({ name: e.target.value });
-            }}
-          />
-          <Input
-            label={"E-mail"}
-            onChange={e => {
-              this.setState({ email: e.target.value });
-            }}
-            type={"email"}
-          />
-          <DateTimeContainer>
-            <DatePickerContainer>
-              <DatePicker
-                customInput={<Input label={"Date"} />}
-                selected={selectedDay}
-                onChange={this.handleDateChange}
-              />
-            </DatePickerContainer>
-            {isLoading && (
-              <SpinnerContainer>
-                <Loader type="Oval" color="#00BFFF" height="20" width="20" />
-              </SpinnerContainer>
-            )}
-            <DropdownContainer>
-              <Dropdown
-                onChange={(e, value) => {
-                  this.setState({ date: value });
-                }}
-                options={availableTimes}
-                disabled={isLoading || availableTimes.length === 0}
-                errorMessage={
-                  availableTimes &&
-                  availableTimes.length === 0 &&
-                  "No available times this day."
-                }
-                placeholder={"Select one slot"}
-                value={date}
-                label={"Time"}
-              />
-            </DropdownContainer>
-          </DateTimeContainer>
-          <Button onClick={this.handleClick} label={"schedule"} />
-        </Div>
-      </Container>
+      <div>
+        <Header title={"Create Appointment"} paddingBottom={"2rem;"} />
+        <Container>
+          <ToastContainer />
+          <Div>
+            <Input
+              label={"Full name"}
+              onChange={e => {
+                this.setState({ name: e.target.value });
+              }}
+            />
+            <Input
+              label={"E-mail"}
+              onChange={e => {
+                this.setState({ email: e.target.value });
+              }}
+              type={"email"}
+            />
+            <DateTimeContainer>
+              <DatePickerContainer>
+                <DatePicker
+                  customInput={<Input label={"Date"} />}
+                  selected={selectedDay}
+                  onChange={this.handleDateChange}
+                />
+              </DatePickerContainer>
+              {isLoading && (
+                <SpinnerContainer>
+                  <Loader type="Oval" color="#00BFFF" height="20" width="20" />
+                </SpinnerContainer>
+              )}
+              <DropdownContainer>
+                <Dropdown
+                  onChange={(e, value) => {
+                    this.setState({ date: value });
+                  }}
+                  options={availableTimes}
+                  disabled={isLoading || availableTimes.length === 0}
+                  errorMessage={
+                    availableTimes &&
+                    availableTimes.length === 0 &&
+                    "No available times this day."
+                  }
+                  placeholder={"Select one slot"}
+                  value={date}
+                  label={"Time"}
+                />
+              </DropdownContainer>
+            </DateTimeContainer>
+            <Button onClick={this.handleClick} label={"schedule"} />
+          </Div>
+        </Container>
+      </div>
     );
   }
 }
 
 const Container = styled.div`
-  width: 40%;
   border-style: solid;
   border-width: 0.125rem;
   border-color: #e3e4e6;
   border-radius: 0.25rem;
   margin: auto;
   padding-top: 1rem;
+  @media (max-width: 640px) {
+    width: 90%;
+  }
+  @media (min-width: 640px) {
+    width: 40%;
+  }
 `;
 
 const DateTimeContainer = styled.div`
