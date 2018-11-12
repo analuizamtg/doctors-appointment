@@ -43,7 +43,7 @@ class ViewAppointments extends Component {
 
     return (
       <div>
-        <Header width={"955px"} title={"Appointments"} />
+        <Header width={"76%"} title={"Appointments"} />
         <TableContainer>
           <ReactTable data={appointments} columns={columns} />
         </TableContainer>
