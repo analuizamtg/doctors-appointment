@@ -1,11 +1,11 @@
 const express = require("express");
-const mongoose = require("./models/appointment");
 const graphqlHTTP = require("express-graphql");
 const cors = require("cors");
 const db = require("mongoose");
 const app = express();
 
 app.use("*", cors());
+app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
 const appointmentSchema = require("./graphql/schema").appointmentSchema;
 app.use(
