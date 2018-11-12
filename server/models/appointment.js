@@ -30,8 +30,4 @@ AppointmentSchema.path("dateAndTime").validate(function(value, done) {
   return value > new Date();
 }, "The appointment cannot be scheduled in the past");
 
-AppointmentSchema.path("endDateAndTime").validate(function(value, done) {
-  return value > this.dateAndTime;
-}, "End date must be greater than start date");
-
 module.exports = mongoose.model("Appointment", AppointmentSchema);
