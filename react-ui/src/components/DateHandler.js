@@ -17,7 +17,6 @@ class DateHandler extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
       slots: [],
       availableTimes: []
     };
@@ -54,12 +53,12 @@ class DateHandler extends Component {
 
   handleDateChange = date => {
     this.props.onDateChange(date);
-    this.setState({ isLoading: true });
   };
 
   render() {
     const { isLoading, availableTimes } = this.state;
-    const { date, onDateChange } = this.props;
+    const { date, onDateChange, slotsData } = this.props;
+    const { loading } = slotsData;
     return (
       <div>
         <DateTimeContainer>
@@ -70,7 +69,7 @@ class DateHandler extends Component {
               onChange={this.handleDateChange}
             />
           </DatePickerContainer>
-          {isLoading && (
+          {loading && (
             <SpinnerContainer>
               <Loader type="Oval" color="#00BFFF" height="20" width="20" />
             </SpinnerContainer>
@@ -127,7 +126,8 @@ const getSlotsByDateQuery = graphql(getSlotsByDate, {
 
 DateHandler.propTypes = {
   date: PropTypes.object.isRequired,
-  onDateChange: PropTypes.func.isRequired
+  onDateChange: PropTypes.func.isRequired,
+  slotsData: PropTypes.object
 };
 
 export default compose(getSlotsByDateQuery)(DateHandler);
