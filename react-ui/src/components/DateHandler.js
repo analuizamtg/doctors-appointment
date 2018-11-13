@@ -55,15 +55,6 @@ class DateHandler extends Component {
   handleDateChange = date => {
     this.props.onDateChange(date);
     this.setState({ isLoading: true });
-    this.props.slotsData
-      .refetch({
-        date: date._d
-      })
-      .then(data => {
-        this.setState({ slots: data.data.slotsByDate }, () => {
-          return this.getPossibleAppointmentTimes();
-        });
-      });
   };
 
   render() {
