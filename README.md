@@ -39,28 +39,6 @@ npm install
 npm start
 ```
 
-## Automated tests
-
-### First, run the API Server
-
-In a terminal:
-
-```bash
-# Initial setup
-npm install
-
-# Start the server
-npm start
-```
-
-### Run tests
-
-In a separate terminal from the API server:
-
-```bash
-npm test
-```
-
 ## Built With
 
 - [Create-react-app](https://github.com/facebookincubator/create-react-app) to start a React project.
