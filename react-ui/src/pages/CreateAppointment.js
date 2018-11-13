@@ -10,8 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Header from "../components/Header";
 import DateHandler from "../components/DateHandler";
-
-const APPOINTMENT_DURATION_IN_MINUTES = 30;
+import { APPOINTMENT_DURATION_IN_MINUTES } from "../constants";
 
 class CreateAppointment extends Component {
   constructor(props) {

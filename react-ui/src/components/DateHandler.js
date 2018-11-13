@@ -10,8 +10,7 @@ import { compose, graphql } from "react-apollo";
 import getSlotsByDate from "../graphql/GetSlotsByDate.js";
 import Loader from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.min.css";
-
-const APPOINTMENT_DURATION_IN_MINUTES = 30;
+import { APPOINTMENT_DURATION_IN_MINUTES } from "../constants";
 
 class DateHandler extends Component {
   constructor(props) {
